@@ -1,0 +1,117 @@
+# Configuration file for Flamenco Manager.
+# For an explanation of the fields, refer to flamenco-manager-example.yaml
+#
+# NOTE: this file will be overwritten by Flamenco Manager's web-based configuration system.
+#
+# This file was written on 2021-05-03 13:30:32 +02:00
+
+_meta:
+  version: 2
+mode: production
+manager_name: <MANAGER_NAME>
+database_url: mongodb://flamenco-db
+database_path: ./db
+task_logs_path: /var/logs/flamenco
+listen: :8080
+listen_https: :8433
+own_url: <OWN_URL>
+flamenco: <FLAMENCO_SERVER>
+manager_id: ""
+tlskey: ""
+tlscert: ""
+acme_domain_name: ""
+download_task_sleep: 10m0s
+download_task_recheck_throttle: 10s
+task_update_push_max_interval: 5s
+task_update_push_max_count: 3000
+cancel_task_fetch_max_interval: 10s
+active_task_timeout_interval: 10m0s
+active_worker_timeout_interval: 1m0s
+task_cleanup_max_age: 336h0m0s
+worker_cleanup_max_age: 0s
+worker_cleanup_status:
+- offline
+blacklist_threshold: 3
+task_fail_after_softfail_count: 3
+watch_for_latest_image: ""
+ssdp_discovery: true
+ssdp_device_uuid:
+test_tasks:
+  test_blender_render:
+    job_storage: '{job_storage}/test-jobs'
+    render_output: '{render}/test-renders'
+shaman:
+  enabled: false
+  fileStorePath: /shared/flamenco/file-store
+  checkoutPath: /shared/flamenco/jobs
+  garbageCollect:
+    period: 24h0m0s
+    maxAge: 744h0m0s
+    extraCheckoutPaths: []
+user_authentication:
+  publicKeysDownloadInterval: 1h0m0s
+worker_registration_secret: ""
+variables:
+  blender:
+    direction: oneway
+    values:
+    - audience: all
+      platform: linux
+      value: /linux/path/to/blender
+    - audience: all
+      platform: linux
+      value: /farm/path/to/blender
+    - audience: all
+      platform: windows
+      value: C:/windows/path/to/blender.exe
+    - audience: all
+      platform: darwin
+      value: /Volumes/Applications/Blender/blender
+  ffmpeg:
+    direction: oneway
+    values:
+    - audience: all
+      platform: linux
+      value: /usr/bin/ffmpeg
+    - audience: all
+      platform: windows
+      value: C:/windows/path/to/ffmpeg.exe
+    - audience: all
+      platform: darwin
+      value: /Volumes/Applications/FFmpeg/ffmpeg
+  job_storage:
+    direction: twoway
+    values:
+    - audience: all
+      platform: linux
+      value: /shared/flamenco/jobs
+    - audience: all
+      platform: windows
+      value: S:/flamenco/jobs
+    - audience: all
+      platform: darwin
+      value: /Volumes/Shared/flamenco/jobs
+  render:
+    direction: oneway
+    values:
+    - audience: all
+      platform: linux
+      value: /shared/flamenco/render
+    - audience: all
+      platform: windows
+      value: S:/flamenco/render
+    - audience: all
+      platform: darwin
+      value: /Volumes/Shared/flamenco/render
+  shaman:
+    direction: oneway
+    values:
+    - audience: all
+      platform: linux
+      value: /shared/flamenco/jobs
+    - audience: all
+      platform: windows
+      value: S:/flamenco/jobs
+    - audience: all
+      platform: darwin
+      value: /Volumes/Shared/flamenco/jobs

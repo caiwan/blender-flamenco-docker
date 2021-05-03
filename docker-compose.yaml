@@ -1,0 +1,33 @@
+version: "3.3"
+services:
+
+  flamenco-db: 
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: flamenco-admin
+      MONGO_INITDB_ROOT_PASSWORD: adminpwd123
+    volumes:
+      - db-data:/data/db
+
+  flamenco-manager:
+    build:
+      context: .
+      dockerfile: manager.dockerfile
+    links: 
+      - flamenco-db:flamenco-db
+    ports:
+      - 8081:8080
+    volumes:
+      - shared-data:/shared
+
+  flamenco-worker:
+    build:
+      context: .
+      dockerfile: worker.dockerfile
+    volumes:
+      - shared-data:/shared
+
+volumes:
+  db-data:
+  shared-data:
